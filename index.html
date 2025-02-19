@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="./assets/styles/styles.css" type="text/css" />
+  <script src="./assets/scripts/javascript.js" type="text/javascript"></script>
+  <title> Commit Buddy </title>
+</head>
+<body>
+
+  <h1> Commit Buddy </h1>
+  <p> A simple tool to help create Git commit messages. </p>
+
+  <form>
+    <p><b> File(s) or Path: </b></p>
+
+    <input id="file_or_path" type="text" name="file" size="50">
+    <input id="commit_all" type="checkbox"> All files? </input>
+    <!-- <input type="button" value="Add" id="add_new_input_field"> -->
+
+    <p><b> Message: </b></p>
+
+    <select id="dropdown_options" name="dropdown_options">
+      <option value="" selected></option>
+      <option value="create"> Create </option>
+      <option value="add"> Add </option>
+      <option value="update"> Update </option>
+      <option value="change"> Change </option>
+      <option value="fix"> Fix </option>
+      <option value="delete"> Delete </option>
+      <option value="remove"> Remove </option>
+    </select>
+
+    <input id="message" type="text" name="message" size="50">
+  </form>
+
+  <div id="commit_message">
+    <p id="file_or_path_content"></p>
+    <p id="message_content"></p>
+  </div>
+
+<script>
+  generateMessage();
+  setInterval(generateMessage, 1000);
+</script>
+</body>
+</html>
