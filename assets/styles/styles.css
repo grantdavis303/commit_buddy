@@ -1,3 +1,7 @@
 body {
   background-color: aliceblue;
 }
+
+div#commit_message {
+  background-color: aquamarine;
+}
