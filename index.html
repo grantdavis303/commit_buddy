@@ -9,11 +9,11 @@
 </head>
 <body>
 
-  <h1> Commit Buddy </h1>
+  <h1> Commit Buddy </a></h1>
   <p> A simple tool to help create Git commit messages. </p>
 
   <form>
-    <p><b> File(s) or Path: </b></p>
+    <p><b> File or File Path: </b></p>
 
     <input id="filePath" type="text" name="file" size="50">
     <input id="commitAll" type="checkbox"> All files? </input>
@@ -33,9 +33,11 @@
     </select>
 
     <input id="message" type="text" name="message" size="50">
+
+    <input type="reset">
   </form>
 
-  <div id="commit_message">
+  <div id="commitMessage">
     <p id="filePathContent"></p>
     <p id="messageContent"></p>
   </div>
