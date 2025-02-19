@@ -15,13 +15,13 @@
   <form>
     <p><b> File(s) or Path: </b></p>
 
-    <input id="file_or_path" type="text" name="file" size="50">
-    <input id="commit_all" type="checkbox"> All files? </input>
+    <input id="filePath" type="text" name="file" size="50">
+    <input id="commitAll" type="checkbox"> All files? </input>
     <!-- <input type="button" value="Add" id="add_new_input_field"> -->
 
     <p><b> Message: </b></p>
 
-    <select id="dropdown_options" name="dropdown_options">
+    <select id="dropdownOptions" name="dropdownOptions">
       <option value="" selected></option>
       <option value="create"> Create </option>
       <option value="add"> Add </option>
@@ -36,8 +36,8 @@
   </form>
 
   <div id="commit_message">
-    <p id="file_or_path_content"></p>
-    <p id="message_content"></p>
+    <p id="filePathContent"></p>
+    <p id="messageContent"></p>
   </div>
 
 <script>

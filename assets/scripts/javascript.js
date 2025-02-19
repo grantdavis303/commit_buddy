@@ -1,31 +1,31 @@
 function generateMessage(){
-  var file_or_path = document.getElementById("file_or_path");
-  var commit_all = document.getElementById("commit_all");
-  var dropdown_options = document.getElementById("dropdown_options");
-  var dropdown_value = dropdown_options.value;
+  var filePath = document.getElementById("filePath");
+  var commitAll = document.getElementById("commitAll");
+  var dropdownOptions = document.getElementById("dropdownOptions");
+  var dropdownValue = dropdownOptions.value;
   var message = document.getElementById("message");
-  var new_message;
+  var newMessage;
 
-  if (commit_all.checked) {
-    document.getElementById("file_or_path_content").textContent = 'git add .';
-  } else if (file_or_path.value.length > 0) {
-    document.getElementById("file_or_path_content").textContent = `git add ${file_or_path.value}`;
+  if (commitAll.checked) {
+    document.getElementById("filePathContent").textContent = 'git add .';
+  } else if (filePath.value.length > 0) {
+    document.getElementById("filePathContent").textContent = `git add ${filePath.value}`;
   } else {
-    document.getElementById("file_or_path_content").textContent = '';
+    document.getElementById("filePathContent").textContent = '';
   }
 
-  if (dropdown_value.length == 0){
-    new_message = message.value;
+  if (dropdownValue.length == 0){
+    newMessage = message.value;
   } else {
-    var capitalizedWord = capitalizeWord(dropdown_value);
+    var capitalizedWord = capitalizeWord(dropdownValue);
 
-    new_message = `${capitalizedWord} ${message.value}`;
+    newMessage = `${capitalizedWord} ${message.value}`;
   }
 
   if (message.value.length > 0) {
-    document.getElementById("message_content").textContent = `git commit -m "${new_message}"`;
+    document.getElementById("messageContent").textContent = `git commit -m "${newMessage}"`;
   } else {
-    document.getElementById("message_content").textContent = '';
+    document.getElementById("messageContent").textContent = '';
   }
 }
 
