@@ -3,5 +3,10 @@ body {
 }
 
 div#commitMessage {
-  background-color: aquamarine;
+  background-color: rgb(29, 29, 29);
+  padding: 10px;
+  margin-top: 10px;
+  border-radius: 6px;
+  font-family: monospace;
+  color: aliceblue;
 }
