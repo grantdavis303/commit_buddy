@@ -1,24 +1,28 @@
 function generateMessage(){
   var filePath = document.getElementById("filePath");
+  var filePathContent = document.getElementById("filePathContent");
   var commitAll = document.getElementById("commitAll");
   var dropdownOptions = document.getElementById("dropdownOptions");
   var dropdownValue = dropdownOptions.value;
   var message = document.getElementById("message");
+  var commitMessage = document.getElementById("commitMessage");
   var newMessage;
 
-  if (commitAll.checked) {
-    document.getElementById("filePathContent").textContent = 'git add .';
+  if (commitAll.checked && filePath.value.length > 0) {
+    commitMessage.style.display = 'block';
+    filePathContent.textContent = 'git add .';
   } else if (filePath.value.length > 0) {
-    document.getElementById("filePathContent").textContent = `git add ${filePath.value}`;
+    commitMessage.style.display = 'block';
+    filePathContent.textContent = `git add ${filePath.value}`;
   } else {
-    document.getElementById("filePathContent").textContent = '';
+    commitMessage.style.display = 'none';
+    filePathContent.textContent = '';
   }
 
   if (dropdownValue.length == 0){
     newMessage = message.value;
   } else {
     var capitalizedWord = capitalizeWord(dropdownValue);
-
     newMessage = `${capitalizedWord} ${message.value}`;
   }
 
