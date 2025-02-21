@@ -10,3 +10,7 @@ div#commitMessage {
   font-family: monospace;
   color: aliceblue;
 }
+
+p#copiedMessageAlert {
+  color: green;
+}
