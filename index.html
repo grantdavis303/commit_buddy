@@ -15,8 +15,11 @@
   <form>
     <p><b> File or File Path: </b></p>
 
-    <input id="filePath" type="text" name="file" size="50">
-    <input id="commitAll" type="checkbox"> All files? </input>
+    <div>
+      <input id="filePath" type="text" name="file" size="50">
+      <input id="commitAll" type="checkbox"> All files? </input>
+    </div>
+
     <!-- <input type="button" value="Add" id="add_new_input_field"> -->
 
     <p><b> Message: </b></p>
@@ -34,7 +37,10 @@
 
     <input id="message" type="text" name="message" size="50">
 
-    <input type="reset">
+    <div>
+      <br />
+      <input id="resetButton" type="reset">
+    </div>
   </form>
 
   <p><b> Generated Message: </b></p>
@@ -42,9 +48,18 @@
   <div id="commitMessage">
     <p id="filePathContent"></p>
     <p id="messageContent"></p>
+    <button id="copyButton"> Copy </button>
   </div>
 
+  <p id="copiedMessageAlert"></p>
+
 <script>
+  const resetButton = document.getElementById("resetButton");
+  const copyButton = document.getElementById("copyButton");
+
+  resetButton.addEventListener("click", resetForm);
+  copyButton.addEventListener("click", copyToClipboard);
+
   generateMessage();
   setInterval(generateMessage, 100);
 </script>
