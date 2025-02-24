@@ -1,3 +1,4 @@
+// Dynamically create the git message
 function generateMessage(){
   var filePath = document.getElementById("filePath");
   var filePathContent = document.getElementById("filePathContent");
@@ -33,6 +34,7 @@ function generateMessage(){
   }
 }
 
+// Capitalize the dropdown adjective if utilized
 function capitalizeWord(word){
   var firstLetter = word.charAt(0);
   var remainingLetters = word.substring(1);
@@ -41,6 +43,7 @@ function capitalizeWord(word){
   return capitalFirstLetter + remainingLetters;
 }
 
+// Copy the git message to the clipboard
 function copyToClipboard(){
   var filePathContent = document.getElementById("filePathContent");
   var messageContent = document.getElementById("messageContent");
@@ -51,8 +54,9 @@ function copyToClipboard(){
   navigator.clipboard.writeText(copiedMessage)
 }
 
+// Reset all formatting for the form
 function resetForm(){
   var copiedMessageAlert = document.getElementById("copiedMessageAlert");
-  
+
   copiedMessageAlert.textContent = '';
 }
