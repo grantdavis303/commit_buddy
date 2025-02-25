@@ -1,11 +1,13 @@
-// Dynamically create the git message
+// Dynamically generate the git message
 function generateMessage(){
-  var filePath = document.getElementById("filePath");
+  const filePath = document.getElementById("filePath");
+  const commitAll = document.getElementById("commitAll");
+  const pushOriginMain = document.getElementById("pushOriginMain");
+  const dropdownOptions = document.getElementById("dropdownOptions");
+  const dropdownValue = dropdownOptions.value;
+  const message = document.getElementById("message");
   var filePathContent = document.getElementById("filePathContent");
-  var commitAll = document.getElementById("commitAll");
-  var dropdownOptions = document.getElementById("dropdownOptions");
-  var dropdownValue = dropdownOptions.value;
-  var message = document.getElementById("message");
+  var pushOriginMainContent = document.getElementById("pushOriginMainContent");
   var commitMessage = document.getElementById("commitMessage");
   var newMessage;
 
@@ -18,6 +20,12 @@ function generateMessage(){
   } else {
     commitMessage.style.display = 'none';
     filePathContent.textContent = '';
+  }
+
+  if (pushOriginMain.checked) {
+    pushOriginMainContent.textContent = 'git push origin main';;
+  } else {
+    pushOriginMainContent.textContent = '';
   }
 
   if (dropdownValue.length == 0){
@@ -36,27 +44,34 @@ function generateMessage(){
 
 // Capitalize the dropdown adjective if utilized
 function capitalizeWord(word){
-  var firstLetter = word.charAt(0);
-  var remainingLetters = word.substring(1);
-  var capitalFirstLetter = firstLetter.toUpperCase();
+  const firstLetter = word.charAt(0);
+  const remainingLetters = word.substring(1);
+  const capitalFirstLetter = firstLetter.toUpperCase();
 
   return capitalFirstLetter + remainingLetters;
 }
 
 // Copy the git message to the clipboard
 function copyToClipboard(){
-  var filePathContent = document.getElementById("filePathContent");
-  var messageContent = document.getElementById("messageContent");
-  var copiedMessage = filePathContent.textContent + '\n' + messageContent.textContent;
-  var copiedMessageAlert = document.getElementById("copiedMessageAlert");
+  const filePathContent = document.getElementById("filePathContent");
+  const messageContent = document.getElementById("messageContent");
+  const pushOriginMainContent = document.getElementById("pushOriginMainContent");
+  const copiedMessageAlert = document.getElementById("copiedMessageAlert");
+  var copiedMessage;
+
+  if (pushOriginMainContent == null){
+    copiedMessage = filePathContent.textContent + '\n' + messageContent.textContent;
+  } else {
+    copiedMessage = filePathContent.textContent + '\n' + messageContent.textContent + '\n' + pushOriginMainContent.textContent;
+  }
 
   copiedMessageAlert.textContent = 'Copied message successfully!';
-  navigator.clipboard.writeText(copiedMessage)
+  navigator.clipboard.writeText(copiedMessage);
 }
 
 // Reset all formatting for the form
 function resetForm(){
-  var copiedMessageAlert = document.getElementById("copiedMessageAlert");
+  const copiedMessageAlert = document.getElementById("copiedMessageAlert");
 
   copiedMessageAlert.textContent = '';
 }
