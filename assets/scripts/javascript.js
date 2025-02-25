@@ -67,6 +67,8 @@ function copyToClipboard(){
 
   copiedMessageAlert.textContent = 'Copied message successfully!';
   navigator.clipboard.writeText(copiedMessage);
+
+  setTimeout(resetForm, 1000);
 }
 
 // Reset all formatting for the form
