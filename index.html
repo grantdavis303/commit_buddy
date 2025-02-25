@@ -15,12 +15,13 @@
   <form>
     <p><b> File or File Path: </b></p>
 
-    <div>
-      <input id="filePath" type="text" name="file" size="50">
-      <input id="commitAll" type="checkbox"> All files? </input>
-    </div>
+    <p> You can manually type in the file or file path, or copy and paste the relative path from your IDE. </p>
 
-    <!-- <input type="button" value="Add" id="add_new_input_field"> -->
+    <div>
+      <input id="filePath" type="text" name="file" size="50" />
+      <br /> <br />
+      <input id="commitAll" type="checkbox"> Commit all files? </input>
+    </div>
 
     <p><b> Message: </b></p>
 
@@ -36,10 +37,12 @@
     </select>
 
     <input id="message" type="text" name="message" size="50">
+    <br /> <br />
+    <input id="pushOriginMain" type="checkbox"> Include git push origin main? </input>
 
     <div>
       <br />
-      <input id="resetButton" type="reset">
+      <input id="resetButton" type="reset" value="Reset Form">
     </div>
   </form>
 
@@ -48,6 +51,7 @@
   <div id="commitMessage">
     <p id="filePathContent"></p>
     <p id="messageContent"></p>
+    <p id="pushOriginMainContent"></p>
     <button id="copyButton"> Copy </button>
   </div>
 
