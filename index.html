@@ -10,43 +10,56 @@
 <body>
 
   <h1> Commit Buddy </a></h1>
+
   <p> A simple tool to help create Git commit messages. </p>
 
   <form>
-    <p><b> File or File Path: </b></p>
+    <div id="fileSection">
+      <p><b> File or File Path: </b></p>
+      <p> You can manually type in the file or file path, or copy and paste the relative path from your IDE. </p>
 
-    <p> You can manually type in the file or file path, or copy and paste the relative path from your IDE. </p>
-
-    <div>
       <input id="filePath" type="text" name="filePath" size="50" />
-      <br /> <br />
+      <br />
+
+      <p><b> Additional File or File Paths: </b></p>
+
+      <div>
+        <div id="addedFilePaths"></div>
+
+        <div>
+          <input id="addFilePath" type="button" name="addFilePath" value="Add File Path">
+        </div>
+      </div>
+
+      <br />
       <input id="commitAllCheckbox" type="checkbox" name="commitAllCheckbox"> Commit all files? </input>
     </div>
 
-    <p><b> Message: </b></p>
+    <div id="messageSection">
+      <p><b> Message: </b></p>
+      <p> You don't have to use the dropdown if you don't want to - it's completely optional. </p>
 
-    <p> You don't have to use the dropdown if you don't want to - it's completely optional. </p>
+      <select id="dropdownOptions" name="dropdownOptions">
+        <option value="" selected></option>
+        <option value="create"> Create </option>
+        <option value="add"> Add </option>
+        <option value="update"> Update </option>
+        <option value="change"> Change </option>
+        <option value="fix"> Fix </option>
+        <option value="delete"> Delete </option>
+        <option value="remove"> Remove </option>
+      </select>
 
-    <select id="dropdownOptions" name="dropdownOptions">
-      <option value="" selected></option>
-      <option value="create"> Create </option>
-      <option value="add"> Add </option>
-      <option value="update"> Update </option>
-      <option value="change"> Change </option>
-      <option value="fix"> Fix </option>
-      <option value="delete"> Delete </option>
-      <option value="remove"> Remove </option>
-    </select>
+      <input id="message" type="text" name="message" size="50">
+      <br /> <br />
 
-    <input id="message" type="text" name="message" size="50">
-    <br /> <br />
-
-    <div>
-      <input id="pushOriginCheckbox" type="checkbox" name="pushOriginCheckbox"> Include git push origin </input>
-      <input id="pushOriginInput" type="text" name="pushOriginInput" size="20" placeholder="main or name of branch" />
+      <div>
+        <input id="pushOriginCheckbox" type="checkbox" name="pushOriginCheckbox"> Include git push origin </input>
+        <input id="pushOriginInput" type="text" name="pushOriginInput" size="20" placeholder="main or name of branch" />
+      </div>
     </div>
 
-    <div>
+    <div id="resetButton">
       <br />
       <input id="resetButton" type="reset" name="resetButton" value="Reset Form">
     </div>
@@ -56,17 +69,23 @@
 
   <div id="commitMessage">
     <p id="filePathContent"></p>
+
+    <div id="addedFilePathsContent"></div>
+
     <p id="messageContent"></p>
     <p id="pushOriginContent"></p>
+
     <button id="copyButton"> Copy </button>
   </div>
 
   <p id="copiedMessageAlert"></p>
 
 <script>
+  const addFilePathButton = document.getElementById("addFilePath");
   const resetButton = document.getElementById("resetButton");
   const copyButton = document.getElementById("copyButton");
 
+  addFilePathButton.addEventListener("click", addFilePath);
   resetButton.addEventListener("click", resetForm);
   copyButton.addEventListener("click", copyToClipboard);
 
