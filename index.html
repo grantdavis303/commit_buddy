@@ -27,7 +27,7 @@
         <div id="addedFilePaths"></div>
 
         <div>
-          <input id="addFilePath" type="button" name="addFilePath" value="Add File Path">
+          <input id="addFilePathButton" type="button" name="addFilePath" value="Add File Path">
         </div>
       </div>
 
@@ -81,11 +81,11 @@
   <p id="copiedMessageAlert"></p>
 
 <script>
-  const addFilePathButton = document.getElementById("addFilePath");
+  const addFilePathButton = document.getElementById("addFilePathButton");
   const resetButton = document.getElementById("resetButton");
   const copyButton = document.getElementById("copyButton");
 
-  addFilePathButton.addEventListener("click", addFilePath);
+  addFilePathButton.addEventListener("click", addFilePathContainer);
   resetButton.addEventListener("click", resetForm);
   copyButton.addEventListener("click", copyToClipboard);
 
