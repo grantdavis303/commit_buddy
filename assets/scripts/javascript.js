@@ -1,11 +1,15 @@
+// Define global variables
+var newFilePathsCount = 0;
+
 // Generate the git message
 function generateMessage(){
   displayFilePathContent();
+  displayExtraFilePathContent();
   displayMessageContent();
   displayPushOriginContent();
 }
 
-// Display the file or file path
+// Display the main file or file path
 function displayFilePathContent(){
   const commitAllCheckbox = document.getElementById('commitAllCheckbox');
   const filePath = document.getElementById('filePath');
@@ -21,6 +25,20 @@ function displayFilePathContent(){
   } else {
     commitMessage.style.display = 'none';
     filePathContent.textContent = '';
+  }
+}
+
+// Display the extra file or file paths
+function displayExtraFilePathContent(){
+  for (let i = 1; i < newFilePathsCount + 1; i++) {
+    const newFilePathInput = document.getElementById(`newFilePath_${i}`);
+    var filePathContent = document.getElementById(`filePathContent_${i}`);
+
+    if (newFilePathInput.value.length > 0) {
+      filePathContent.textContent = `git add ${newFilePathInput.value}`;
+    } else {
+      filePathContent.textContent = '';
+    }
   }
 }
 
@@ -67,29 +85,81 @@ function capitalizeWord(word){
   return capitalFirstLetter + remainingLetters;
 }
 
+// Create a new file path input
+function addFilePath(){
+  const addedFilePaths = document.getElementById('addedFilePaths');
+  const newFilePathContainer = document.createElement('div');
+  const newFilePath = document.createElement('input');
+
+  newFilePathsCount += 1;
+
+  newFilePathContainer.setAttribute('id', `filePathContainer_${newFilePathsCount}`);
+  newFilePath.setAttribute('id', `newFilePath_${newFilePathsCount}`);
+  newFilePath.setAttribute('type', 'text');
+  newFilePath.setAttribute('name', 'filePath');
+  newFilePath.setAttribute('size', '50');
+
+  newFilePathContainer.appendChild(newFilePath);
+
+  addedFilePaths.append(newFilePathContainer);
+
+  createContentDisplay(newFilePathsCount);
+}
+
+// Create a new file path paragraph element in the message
+function createContentDisplay(newFilePathsCount){
+  const addedFilePathsContent = document.getElementById('addedFilePathsContent');
+  const newFilePathContent = document.createElement('p')
+
+  newFilePathContent.setAttribute('id', `filePathContent_${newFilePathsCount}`);
+
+  addedFilePathsContent.append(newFilePathContent);
+}
+
 // Copy the git message to the clipboard
 function copyToClipboard(){
   const filePathContent = document.getElementById('filePathContent');
   const messageContent = document.getElementById('messageContent');
   const pushOriginContent = document.getElementById('pushOriginContent');
   const copiedMessageAlert = document.getElementById('copiedMessageAlert');
-  var copiedMessage;
+  var copiedMessage = filePathContent.textContent + '\n';
 
-  if (pushOriginContent == null){
-    copiedMessage = filePathContent.textContent + '\n' + messageContent.textContent;
-  } else {
-    copiedMessage = filePathContent.textContent + '\n' + messageContent.textContent + '\n' + pushOriginContent.textContent;
+  if (newFilePathsCount > 0){
+    for (let i = 1; i < newFilePathsCount + 1; i++) {
+      var newFilePathContent = document.getElementById(`filePathContent_${i}`);
+
+      copiedMessage += newFilePathContent.textContent + '\n';
+    }
+  }
+
+  copiedMessage += messageContent.textContent + '\n';
+
+  if (pushOriginContent !== null){
+    copiedMessage += pushOriginContent.textContent;
   }
 
   copiedMessageAlert.textContent = 'Copied message successfully!';
+
   navigator.clipboard.writeText(copiedMessage);
 
-  setTimeout(resetForm, 1000);
+  // setTimeout(resetForm, 1000);
 }
 
 // Reset all formatting for the form
 function resetForm(){
   const copiedMessageAlert = document.getElementById('copiedMessageAlert');
 
+  for (let i = 1; i < newFilePathsCount + 1; i++) {
+    const newFilePathInput = document.getElementById(`newFilePath_${i}`);
+    const newFilePathContent = document.getElementById(`filePathContent_${i}`);
+    const newFilePathContainer = document.getElementById(`filePathContainer_${i}`);
+
+    newFilePathInput.remove();
+    newFilePathContent.remove();
+    newFilePathContainer.remove();
+  }
+
   copiedMessageAlert.textContent = '';
+
+  newFilePathsCount = 0;
 }
