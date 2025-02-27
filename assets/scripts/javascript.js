@@ -124,7 +124,6 @@ function copyToClipboard(){
   const filePathContent = document.getElementById('filePathContent');
   const messageContent = document.getElementById('messageContent');
   const pushOriginContent = document.getElementById('pushOriginContent');
-  const copiedMessageAlert = document.getElementById('copiedMessageAlert');
   var copiedMessage = filePathContent.textContent + '\n';
 
   if (addedFilePathsCount > 0){
@@ -143,9 +142,9 @@ function copyToClipboard(){
     copiedMessage += pushOriginContent.textContent;
   }
 
-  copiedMessageAlert.textContent = 'Copied message successfully!';
-
   navigator.clipboard.writeText(copiedMessage);
+
+  displayCopyConfirmation();
 }
 
 // Reset all formatting for the form
@@ -165,4 +164,15 @@ function resetForm(){
   copiedMessageAlert.textContent = '';
 
   addedFilePathsCount = 0;
+}
+
+// Display the green confirmation message briefly
+function displayCopyConfirmation(){
+  const copiedMessageAlert = document.getElementById('copiedMessageAlert');
+
+  copiedMessageAlert.textContent = 'Copied message successfully!';
+
+  setTimeout(() => {
+    copiedMessageAlert.textContent = '';
+  }, 1000);
 }
