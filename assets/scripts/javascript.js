@@ -153,19 +153,10 @@ function copyToClipboard(){
 function resetForm(){
   const copiedMessageAlert = document.getElementById('copiedMessageAlert');
 
-  for (let i = 1; i < addedFilePathsCount + 1; i++) {
-    const newFilePathInput = document.getElementById(`newFilePathInput_${i}`);
-    const newFilePathContent = document.getElementById(`newFilePathContent_${i}`);
-    const newFilePathContainer = document.getElementById(`filePathContainer_${i}`);
-
-    newFilePathInput.remove();
-    newFilePathContent.remove();
-    newFilePathContainer.remove();
-  }
+  removeAllAddedFilePaths();
+  removeAllAddedBreaks();
 
   copiedMessageAlert.textContent = '';
-
-  removeAllBreaks();
 
   addedFilePathsCount = 0;
 }
@@ -189,8 +180,21 @@ function addBreak(){
   addedFilePaths.append(newBreak);
 }
 
+// Remove all new file paths
+function removeAllAddedFilePaths(){
+  for (let i = 1; i < addedFilePathsCount + 1; i++) {
+    const newFilePathInput = document.getElementById(`newFilePathInput_${i}`);
+    const newFilePathContent = document.getElementById(`newFilePathContent_${i}`);
+    const newFilePathContainer = document.getElementById(`filePathContainer_${i}`);
+
+    newFilePathInput.remove();
+    newFilePathContent.remove();
+    newFilePathContainer.remove();
+  }
+}
+
 // Remove all line breaks below every new file path added
-function removeAllBreaks(){
+function removeAllAddedBreaks(){
   const addedFilePaths = document.getElementById('addedFilePaths');
 
   addedFilePaths.textContent = '';
