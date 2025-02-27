@@ -1,5 +1,5 @@
 // Define global variables
-var addedFilePathsCount = 0;
+let addedFilePathsCount = 0;
 
 // Continually generate the git message
 function generateMessage(){
@@ -13,8 +13,8 @@ function generateMessage(){
 function displayMainFilePathContent(){
   const filePath = document.getElementById('filePath');
   const commitAllCheckbox = document.getElementById('commitAllCheckbox');
-  var commitMessage = document.getElementById('commitMessage');
-  var filePathContent = document.getElementById('filePathContent');
+  let commitMessage = document.getElementById('commitMessage');
+  let filePathContent = document.getElementById('filePathContent');
 
   if (commitAllCheckbox.checked && filePath.value.length > 0) {
     commitMessage.style.display = 'block';
@@ -31,7 +31,7 @@ function displayMainFilePathContent(){
 function displayExtraFilePathContent(){
   for (let i = 1; i < addedFilePathsCount + 1; i++) {
     const newFilePathInput = document.getElementById(`newFilePathInput_${i}`);
-    var newFilePathContent = document.getElementById(`newFilePathContent_${i}`);
+    let newFilePathContent = document.getElementById(`newFilePathContent_${i}`);
 
     if (commitAllCheckbox.checked){
       newFilePathContent.style.display = 'none';
@@ -51,13 +51,13 @@ function displayMessageContent(){
   const dropdownOptions = document.getElementById('dropdownOptions');
   const dropdownValue = dropdownOptions.value;
   const message = document.getElementById('message');
-  var messageContent = document.getElementById('messageContent');
-  var newMessage;
+  let messageContent = document.getElementById('messageContent');
+  let newMessage;
 
   if (dropdownValue.length == 0){
     newMessage = message.value;
   } else {
-    var capitalizedWord = capitalizeWord(dropdownValue);
+    let capitalizedWord = capitalizeWord(dropdownValue);
 
     newMessage = `${capitalizedWord} ${message.value}`;
   }
@@ -72,7 +72,7 @@ function displayMessageContent(){
 function displayPushOriginContent(){
   const pushOriginCheckbox = document.getElementById('pushOriginCheckbox');
   const pushOriginInput = document.getElementById('pushOriginInput');
-  var pushOriginContent = document.getElementById('pushOriginContent');
+  let pushOriginContent = document.getElementById('pushOriginContent');
 
   if (pushOriginCheckbox.checked){
     pushOriginContent.textContent = `git push origin ${pushOriginInput.value}`;
@@ -126,11 +126,11 @@ function copyToClipboard(){
   const filePathContent = document.getElementById('filePathContent');
   const messageContent = document.getElementById('messageContent');
   const pushOriginContent = document.getElementById('pushOriginContent');
-  var copiedMessage = filePathContent.textContent + '\n';
+  let copiedMessage = filePathContent.textContent + '\n';
 
   if (addedFilePathsCount > 0){
     for (let i = 1; i < addedFilePathsCount + 1; i++) {
-      var newFilePathContent = document.getElementById(`newFilePathContent_${i}`);
+      let newFilePathContent = document.getElementById(`newFilePathContent_${i}`);
 
       if (newFilePathContent.style.display == 'block') {
         copiedMessage += newFilePathContent.textContent + '\n';
