@@ -151,12 +151,12 @@ function copyToClipboard(){
 
 // Reset all formatting for the form
 function resetForm(){
-  const copiedMessageAlert = document.getElementById('copiedMessageAlert');
+  let commitMessage = document.getElementById('commitMessage');
+
+  commitMessage.style.display = 'none';
 
   removeAllAddedFilePaths();
   removeAllAddedBreaks();
-
-  copiedMessageAlert.textContent = '';
 
   addedFilePathsCount = 0;
 }
