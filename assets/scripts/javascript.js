@@ -89,7 +89,7 @@ function capitalizeWord(word){
   return capitalFirstLetter + remainingLetters;
 }
 
-// Create a new file path input in its own container and create a new file path paragraph element in the displayed git message
+// Create a new file path input w/ container and paragraph element in the displayed git message
 function addFilePathContainer(){
   const addedFilePaths = document.getElementById('addedFilePaths');
   const newFilePathContainer = document.createElement('div');
@@ -106,6 +106,8 @@ function addFilePathContainer(){
   newFilePathContainer.appendChild(newFilePathInput);
 
   addedFilePaths.append(newFilePathContainer);
+
+  addBreak();
 
   createContentDisplay(addedFilePathsCount);
 }
@@ -163,6 +165,8 @@ function resetForm(){
 
   copiedMessageAlert.textContent = '';
 
+  removeAllBreaks();
+
   addedFilePathsCount = 0;
 }
 
@@ -175,4 +179,19 @@ function displayCopyConfirmation(){
   setTimeout(() => {
     copiedMessageAlert.textContent = '';
   }, 1000);
+}
+
+// Add a line break below every new file path added
+function addBreak(){
+  const addedFilePaths = document.getElementById('addedFilePaths');
+  const newBreak = document.createElement('br');
+
+  addedFilePaths.append(newBreak);
+}
+
+// Remove all line breaks below every new file path added
+function removeAllBreaks(){
+  const addedFilePaths = document.getElementById('addedFilePaths');
+
+  addedFilePaths.textContent = '';
 }
