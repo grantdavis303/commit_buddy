@@ -2,7 +2,7 @@
 let addedFilePathsCount = 0;
 
 // Continually generate the git message
-function generateMessage(){
+function generateMessage() {
   displayMainFilePathContent();
   displayExtraFilePathContent();
   displayMessageContent();
@@ -10,7 +10,7 @@ function generateMessage(){
 }
 
 // Display the file or file path for all inputs
-function displayMainFilePathContent(){
+function displayMainFilePathContent() {
   const filePath = document.getElementById('filePath');
   const commitAllCheckbox = document.getElementById('commitAllCheckbox');
   let commitMessage = document.getElementById('commitMessage');
@@ -28,12 +28,12 @@ function displayMainFilePathContent(){
   }
 }
 
-function displayExtraFilePathContent(){
+function displayExtraFilePathContent() {
   for (let i = 1; i < addedFilePathsCount + 1; i++) {
     const newFilePathInput = document.getElementById(`newFilePathInput_${i}`);
     let newFilePathContent = document.getElementById(`newFilePathContent_${i}`);
 
-    if (commitAllCheckbox.checked){
+    if (commitAllCheckbox.checked) {
       newFilePathContent.style.display = 'none';
     } else {
       newFilePathContent.style.display = 'block';
@@ -47,14 +47,14 @@ function displayExtraFilePathContent(){
   }
 }
 
-function displayMessageContent(){
+function displayMessageContent() {
   const dropdownOptions = document.getElementById('dropdownOptions');
   const dropdownValue = dropdownOptions.value;
   const message = document.getElementById('message');
   let messageContent = document.getElementById('messageContent');
   let newMessage;
 
-  if (dropdownValue.length == 0){
+  if (dropdownValue.length == 0) {
     newMessage = message.value;
   } else {
     let capitalizedWord = capitalizeWord(dropdownValue);
@@ -69,19 +69,19 @@ function displayMessageContent(){
   }
 }
 
-function displayPushOriginContent(){
+function displayPushOriginContent() {
   const pushOriginCheckbox = document.getElementById('pushOriginCheckbox');
   const pushOriginInput = document.getElementById('pushOriginInput');
   let pushOriginContent = document.getElementById('pushOriginContent');
 
-  if (pushOriginCheckbox.checked){
+  if (pushOriginCheckbox.checked) {
     pushOriginContent.textContent = `git push origin ${pushOriginInput.value}`;
   } else {
     pushOriginContent.textContent = '';
   }
 }
 
-function capitalizeWord(word){
+function capitalizeWord(word) {
   const firstLetter = word.charAt(0);
   const remainingLetters = word.substring(1);
   const capitalFirstLetter = firstLetter.toUpperCase();
@@ -90,7 +90,7 @@ function capitalizeWord(word){
 }
 
 // Create a new file path input w/ container and paragraph element in the displayed git message
-function addFilePathContainer(){
+function addFilePathContainer() {
   const addedFilePaths = document.getElementById('addedFilePaths');
   const newFilePathContainer = document.createElement('div');
   const newFilePathInput = document.createElement('input');
@@ -112,7 +112,7 @@ function addFilePathContainer(){
   createContentDisplay(addedFilePathsCount);
 }
 
-function createContentDisplay(addedFilePathsCount){
+function createContentDisplay(addedFilePathsCount) {
   const addedFilePathsContent = document.getElementById('addedFilePathsContent');
   const newFilePathContent = document.createElement('p')
 
@@ -122,13 +122,13 @@ function createContentDisplay(addedFilePathsCount){
 }
 
 // Copy the git message to the clipboard
-function copyToClipboard(){
+function copyToClipboard() {
   const filePathContent = document.getElementById('filePathContent');
   const messageContent = document.getElementById('messageContent');
   const pushOriginContent = document.getElementById('pushOriginContent');
   let copiedMessage = filePathContent.textContent + '\n';
 
-  if (addedFilePathsCount > 0){
+  if (addedFilePathsCount > 0) {
     for (let i = 1; i < addedFilePathsCount + 1; i++) {
       let newFilePathContent = document.getElementById(`newFilePathContent_${i}`);
 
@@ -140,7 +140,7 @@ function copyToClipboard(){
 
   copiedMessage += messageContent.textContent + '\n';
 
-  if (pushOriginContent !== null){
+  if (pushOriginContent !== null) {
     copiedMessage += pushOriginContent.textContent;
   }
 
@@ -150,7 +150,7 @@ function copyToClipboard(){
 }
 
 // Reset all formatting for the form
-function resetForm(){
+function resetForm() {
   let commitMessage = document.getElementById('commitMessage');
 
   commitMessage.style.display = 'none';
@@ -162,7 +162,7 @@ function resetForm(){
 }
 
 // Display the green confirmation message briefly
-function displayCopyConfirmation(){
+function displayCopyConfirmation() {
   const copiedMessageAlert = document.getElementById('copiedMessageAlert');
 
   copiedMessageAlert.textContent = 'Copied message successfully!';
@@ -173,7 +173,7 @@ function displayCopyConfirmation(){
 }
 
 // Add a line break below every new file path added
-function addBreak(){
+function addBreak() {
   const addedFilePaths = document.getElementById('addedFilePaths');
   const newBreak = document.createElement('br');
 
@@ -181,7 +181,7 @@ function addBreak(){
 }
 
 // Remove all new file paths
-function removeAllAddedFilePaths(){
+function removeAllAddedFilePaths() {
   for (let i = 1; i < addedFilePathsCount + 1; i++) {
     const newFilePathInput = document.getElementById(`newFilePathInput_${i}`);
     const newFilePathContent = document.getElementById(`newFilePathContent_${i}`);
@@ -194,7 +194,7 @@ function removeAllAddedFilePaths(){
 }
 
 // Remove all line breaks below every new file path added
-function removeAllAddedBreaks(){
+function removeAllAddedBreaks() {
   const addedFilePaths = document.getElementById('addedFilePaths');
 
   addedFilePaths.textContent = '';
