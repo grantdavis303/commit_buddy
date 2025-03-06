@@ -1,6 +1,6 @@
 # Commit Buddy
 
-A simple tool to help create Git commit messages.
+A simple JavaScript tool that dynamically creates Git commands based on user input.
 
 ## To Do
 
