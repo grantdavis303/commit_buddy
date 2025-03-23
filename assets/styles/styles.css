@@ -12,5 +12,10 @@ div#commitMessage {
 }
 
 p#copiedMessageAlert {
-  color: green;
+  color: rgb(0, 125, 125);
+}
+
+@keyframes fade_in_out {
+  0%, 100% { opacity: 0; }
+  25%, 75% { opacity: 1; }
 }

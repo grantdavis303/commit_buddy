@@ -166,10 +166,12 @@ function displayCopyConfirmation() {
   const copiedMessageAlert = document.getElementById('copiedMessageAlert');
 
   copiedMessageAlert.textContent = 'Copied message successfully!';
+  copiedMessageAlert.style.animation = 'fade_in_out 2s';
 
   setTimeout(() => {
     copiedMessageAlert.textContent = '';
-  }, 1000);
+    copiedMessageAlert.style.animation = '';
+  }, 1990);
 }
 
 // Add a line break below every new file path added
