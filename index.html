@@ -10,9 +10,11 @@
 </head>
 <body>
 
-  <img src="./assets/images/Commit_Buddy.png" alt="Commit Buddy Title" />
+  <a href="./index.html">
+    <img src="./assets/images/Commit_Buddy.png" alt="Commit Buddy Title" />
+  </a>
 
-  <p> A simple JavaScript tool that dynamically creates Git commands based on user input. </p>
+  <p> A simple JavaScript tool that dynamically creates Git commit commands based on user input. </p>
 
   <form>
     <div id="fileSection">
@@ -90,7 +92,7 @@
   copyButton.addEventListener("click", copyToClipboard);
 
   generateMessage();
-  setInterval(generateMessage, 100);
+  setInterval(generateMessage, 20);
 </script>
 </body>
 </html>
