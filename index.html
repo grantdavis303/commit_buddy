@@ -91,6 +91,7 @@
   resetButton.addEventListener("click", resetForm);
   copyButton.addEventListener("click", copyToClipboard);
 
+  // Every 20 milliseconds, check the state of the web page and dynamically update the git message.
   generateMessage();
   setInterval(generateMessage, 20);
 </script>
