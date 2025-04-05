@@ -1,5 +1,6 @@
-// Define global variables
+// Global variables
 let addedFilePathsCount = 0;
+let addedFilePathIds = [];
 
 // Continually generate the git message
 function generateMessage() {
@@ -9,7 +10,6 @@ function generateMessage() {
   displayPushOriginContent();
 }
 
-// Display the file or file path for all inputs
 function displayMainFilePathContent() {
   const filePath = document.getElementById('filePath');
   const commitAllCheckbox = document.getElementById('commitAllCheckbox');
@@ -29,9 +29,10 @@ function displayMainFilePathContent() {
 }
 
 function displayExtraFilePathContent() {
-  for (let i = 1; i < addedFilePathsCount + 1; i++) {
-    const newFilePathInput = document.getElementById(`newFilePathInput_${i}`);
-    let newFilePathContent = document.getElementById(`newFilePathContent_${i}`);
+  for (let i = 0; i < addedFilePathIds.length; i++) {
+    const value = addedFilePathIds[i];
+    const newFilePathInput = document.getElementById(`newFilePathInput_${value}`);
+    let newFilePathContent = document.getElementById(`newFilePathContent_${value}`);
 
     if (commitAllCheckbox.checked) {
       newFilePathContent.style.display = 'none';
@@ -45,6 +46,23 @@ function displayExtraFilePathContent() {
       newFilePathContent.textContent = '';
     }
   }
+
+  // for (let i = 1; i < addedFilePathsCount + 1; i++) {
+  //   const newFilePathInput = document.getElementById(`newFilePathInput_${i}`);
+  //   let newFilePathContent = document.getElementById(`newFilePathContent_${i}`);
+
+  //   if (commitAllCheckbox.checked) {
+  //     newFilePathContent.style.display = 'none';
+  //   } else {
+  //     newFilePathContent.style.display = 'block';
+  //   }
+
+  //   if (newFilePathInput.value.length > 0) {
+  //     newFilePathContent.textContent = `git add ${newFilePathInput.value}`;
+  //   } else {
+  //     newFilePathContent.textContent = '';
+  //   }
+  // }
 }
 
 function displayMessageContent() {
@@ -81,35 +99,44 @@ function displayPushOriginContent() {
   }
 }
 
-function capitalizeWord(word) {
-  const firstLetter = word.charAt(0);
-  const remainingLetters = word.substring(1);
-  const capitalFirstLetter = firstLetter.toUpperCase();
-
-  return capitalFirstLetter + remainingLetters;
-}
-
-// Create a new file path input w/ container and paragraph element in the displayed git message
+// Create everything for a new file path
 function addFilePathContainer() {
   const addedFilePaths = document.getElementById('addedFilePaths');
   const newFilePathContainer = document.createElement('div');
   const newFilePathInput = document.createElement('input');
+  const newFilePathRemoveButton = document.createElement('button');
+  const newBreak = document.createElement('br');
 
   addedFilePathsCount += 1;
+  addedFilePathIds.push(addedFilePathsCount);
 
   newFilePathContainer.setAttribute('id', `filePathContainer_${addedFilePathsCount}`);
+
   newFilePathInput.setAttribute('id', `newFilePathInput_${addedFilePathsCount}`);
   newFilePathInput.setAttribute('type', 'text');
   newFilePathInput.setAttribute('name', 'filePath');
   newFilePathInput.setAttribute('size', '50');
 
+  newFilePathRemoveButton.setAttribute('id', `filePathRemoveButton_${addedFilePathsCount}`);
+  newFilePathRemoveButton.setAttribute('type', 'button');
+  newFilePathRemoveButton.textContent = 'Remove';
+
+  newBreak.setAttribute('id', `newBreak_${addedFilePathsCount}`);
+
   newFilePathContainer.appendChild(newFilePathInput);
+  newFilePathContainer.appendChild(newFilePathRemoveButton);
 
   addedFilePaths.append(newFilePathContainer);
+  addedFilePaths.append(newBreak);
 
-  addBreak();
-
+  createRemoveButtonEventListener();
   createContentDisplay(addedFilePathsCount);
+}
+
+function createRemoveButtonEventListener() {
+  const container = document.getElementById(`filePathRemoveButton_${addedFilePathsCount}`);
+
+  container.addEventListener('click', removeFilePathContainer);
 }
 
 function createContentDisplay(addedFilePathsCount) {
@@ -121,6 +148,33 @@ function createContentDisplay(addedFilePathsCount) {
   addedFilePathsContent.append(newFilePathContent);
 }
 
+// Remove everything for an existing file path
+function removeFilePathContainer() {
+  const elementId = document.activeElement.id;
+  const formattedId = elementId.replace('filePathRemoveButton_', '');
+  number = Number(formattedId);
+
+  for (let i = 1; i < addedFilePathsCount + 1; i++) {
+    if (i == number) {
+      const filePathContainer = document.getElementById(`filePathContainer_${number}`);
+      const newBreak = document.getElementById(`newBreak_${number}`);
+      const newFilePathContent = document.getElementById(`newFilePathContent_${number}`);
+
+      filePathContainer.remove();
+      newBreak.remove();
+      newFilePathContent.remove();
+
+      for (let i = 0; i < addedFilePathIds.length; i++) {
+        if (addedFilePathIds[i] == number) {
+          addedFilePathIds.splice(i, 1);
+        }
+      }
+
+      break
+    }
+  }
+}
+
 // Copy the git message to the clipboard
 function copyToClipboard() {
   const filePathContent = document.getElementById('filePathContent');
@@ -128,9 +182,10 @@ function copyToClipboard() {
   const pushOriginContent = document.getElementById('pushOriginContent');
   let copiedMessage = filePathContent.textContent + '\n';
 
-  if (addedFilePathsCount > 0) {
-    for (let i = 1; i < addedFilePathsCount + 1; i++) {
-      let newFilePathContent = document.getElementById(`newFilePathContent_${i}`);
+  if (addedFilePathIds.length > 0) {
+    for (let i = 0; i < addedFilePathIds.length; i++) {
+      const value = addedFilePathIds[i];
+      let newFilePathContent = document.getElementById(`newFilePathContent_${value}`);
 
       if (newFilePathContent.style.display == 'block') {
         copiedMessage += newFilePathContent.textContent + '\n';
@@ -149,19 +204,6 @@ function copyToClipboard() {
   displayCopyConfirmation();
 }
 
-// Reset all formatting for the form
-function resetForm() {
-  let commitMessage = document.getElementById('commitMessage');
-
-  commitMessage.style.display = 'none';
-
-  removeAllAddedFilePaths();
-  removeAllAddedBreaks();
-
-  addedFilePathsCount = 0;
-}
-
-// Display the green confirmation message briefly
 function displayCopyConfirmation() {
   const copiedMessageAlert = document.getElementById('copiedMessageAlert');
 
@@ -174,20 +216,25 @@ function displayCopyConfirmation() {
   }, 1990);
 }
 
-// Add a line break below every new file path added
-function addBreak() {
-  const addedFilePaths = document.getElementById('addedFilePaths');
-  const newBreak = document.createElement('br');
+// Reset all formatting for the form
+function resetForm() {
+  let commitMessage = document.getElementById('commitMessage');
 
-  addedFilePaths.append(newBreak);
+  commitMessage.style.display = 'none';
+
+  removeAllAddedFilePaths();
+  removeAllAddedBreaks();
+
+  addedFilePathsCount = 0;
+  addedFilePathIds = [];
 }
 
-// Remove all new file paths
 function removeAllAddedFilePaths() {
-  for (let i = 1; i < addedFilePathsCount + 1; i++) {
-    const newFilePathInput = document.getElementById(`newFilePathInput_${i}`);
-    const newFilePathContent = document.getElementById(`newFilePathContent_${i}`);
-    const newFilePathContainer = document.getElementById(`filePathContainer_${i}`);
+  for (let i = 0; i < addedFilePathIds.length; i++) {
+    const value = addedFilePathIds[i];
+    const newFilePathInput = document.getElementById(`newFilePathInput_${value}`);
+    const newFilePathContent = document.getElementById(`newFilePathContent_${value}`);
+    const newFilePathContainer = document.getElementById(`filePathContainer_${value}`);
 
     newFilePathInput.remove();
     newFilePathContent.remove();
@@ -195,9 +242,17 @@ function removeAllAddedFilePaths() {
   }
 }
 
-// Remove all line breaks below every new file path added
 function removeAllAddedBreaks() {
   const addedFilePaths = document.getElementById('addedFilePaths');
 
   addedFilePaths.textContent = '';
+}
+
+// Helper Functions
+function capitalizeWord(word) {
+  const firstLetter = word.charAt(0);
+  const remainingLetters = word.substring(1);
+  const capitalFirstLetter = firstLetter.toUpperCase();
+
+  return capitalFirstLetter + remainingLetters;
 }
