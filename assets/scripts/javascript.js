@@ -46,23 +46,6 @@ function displayExtraFilePathContent() {
       newFilePathContent.textContent = '';
     }
   }
-
-  // for (let i = 1; i < addedFilePathsCount + 1; i++) {
-  //   const newFilePathInput = document.getElementById(`newFilePathInput_${i}`);
-  //   let newFilePathContent = document.getElementById(`newFilePathContent_${i}`);
-
-  //   if (commitAllCheckbox.checked) {
-  //     newFilePathContent.style.display = 'none';
-  //   } else {
-  //     newFilePathContent.style.display = 'block';
-  //   }
-
-  //   if (newFilePathInput.value.length > 0) {
-  //     newFilePathContent.textContent = `git add ${newFilePathInput.value}`;
-  //   } else {
-  //     newFilePathContent.textContent = '';
-  //   }
-  // }
 }
 
 function displayMessageContent() {
